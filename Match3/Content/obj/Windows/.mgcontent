@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/BackGround.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/PlayButton.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/OkButton.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GameOver.spritefont</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GridActiveElement.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GridElement.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/RedGhost.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Bomb.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineHorizontal.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineVertical.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/BlueGhost.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GreenGhost.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/OrangeGhost.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/PurplegGhost.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Destroyer1.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Destroyer2.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Explosion.png</File>
+  </SourceFiles>
+</SourceFileCollection>
