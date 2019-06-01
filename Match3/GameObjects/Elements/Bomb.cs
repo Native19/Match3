@@ -6,17 +6,17 @@ namespace Match3.GameObjects.Elements
 {
     class Bomb : ActiveElement
     {
-        private List<Ghost> deliteList = new List<Ghost>();
+        private List<Ghost> deleteList = new List<Ghost>();
         private float bombTimer = 250f;
-        public Bomb(string textureName, string elementType, Point startPos, List<Ghost> deliteList) : base(textureName, elementType, startPos)
+        public Bomb(string textureName, string elementType, Point startPos, List<Ghost> deleteList) : base(textureName, elementType, startPos)
         {
-            this.deliteList = deliteList;
+            this.deleteList = deleteList;
         }
 
-        public List<Ghost> DeliteList
+        public List<Ghost> DeleteList
         {
-            get { return deliteList; }
-            set { deliteList = value; }
+            get { return deleteList; }
+            set { deleteList = value; }
         }
 
         public float BombTimer

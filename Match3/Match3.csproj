@@ -50,13 +50,14 @@
     <Compile Include="GameLogic\Initialize\MainMenu.cs" />
     <Compile Include="GameLogic\MainMenuLogic.cs" />
     <Compile Include="GameLogic\GameControllers\MoveController.cs" />
-    <Compile Include="GameLogic\ScreenMeneger.cs" />
+    <Compile Include="GameLogic\ScreenMenager.cs" />
     <Compile Include="GameLogic\GameControllers\SelectedController.cs" />
     <Compile Include="GameObjects\Elements\ActiveElement.cs" />
     <Compile Include="GameObjects\Elements\Bomb.cs" />
     <Compile Include="GameObjects\Elements\Destroyer.cs" />
     <Compile Include="GameObjects\Elements\GameElement.cs" />
     <Compile Include="GameObjects\Elements\Ghost.cs" />
+    <Compile Include="GameObjects\Enums.cs" />
     <Compile Include="GameObjects\GameGrid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

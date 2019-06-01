@@ -154,35 +154,35 @@ namespace Match3.GameObjects
 
             for (int i = 0; i < matches.Count(); i++)
             {
-                Ghost boostetElement = new Ghost();
-                boostetElement = matches[i].Find(element => element.IsSelected == true);
-                if (!(boostetElement != null && boostetElement.IsBoosted))
+                Ghost boostedElement = new Ghost();
+                boostedElement = matches[i].Find(element => element.IsSelected == true);
+                if (!(boostedElement != null && boostedElement.IsBoosted))
                 {
-                    if (!(boostetElement != null && !boostetElement.IsBoosted))
+                    if (!(boostedElement != null && !boostedElement.IsBoosted))
                     {
                         var random = new Random();
-                        boostetElement = matches[i][random.Next(matches[i].Count)];
-                        while (boostetElement.IsBoosted)
+                        boostedElement = matches[i][random.Next(matches[i].Count)];
+                        while (boostedElement.IsBoosted)
                         {
-                            boostetElement = matches[i][random.Next(matches[i].Count)];
+                            boostedElement = matches[i][random.Next(matches[i].Count)];
                         }
                     }
                     if (gameStarted && matches[i].Count > 3) // добавление буста
                     {
                         if (matches[i].Count > 4)
                         {
-                            boostetElement.SetBoost(0);
-                            matches[i].Remove(boostetElement);
+                            boostedElement.SetBoost(0);
+                            matches[i].Remove(boostedElement);
                         }
                         else
                         {
                             if (IsMatchVertical(matches[i]))
-                                boostetElement.SetBoost(1);
+                                boostedElement.SetBoost(1);
                             else
-                                boostetElement.SetBoost(2);
-                            matches[i].Remove(boostetElement);
+                                boostedElement.SetBoost(2);
+                            matches[i].Remove(boostedElement);
                         }
-                        boostetElement.Deleted = false;
+                        boostedElement.Deleted = false;
                     }
                 }
                 for (int j = 0; j < matches[i].Count; j++)
@@ -200,7 +200,7 @@ namespace Match3.GameObjects
             {
                 RemoveBoostedGhost(deleteGhost);
             }
-            if (!MoveController.destroer && !MoveController.bombIsActive)
+            if (!MoveController.destroyer && !MoveController.bombIsActive)
             {
                 AffectAbove(deleteGhost);
             }
@@ -211,47 +211,54 @@ namespace Match3.GameObjects
             switch (deleteGhost.GhostBoost)
             {
                 case 0:
-                    List<Ghost> deliteList = new List<Ghost>();
+                    List<Ghost> deleteList = new List<Ghost>();
                     for (int row = -1; row <= 1; row++)
                         for (int col = -1; col <= 1; col++)
                             if (!(row == 0 && col == 0) &&
-                                InGridSize(deleteGhost.PositionInGrid.X + row, deleteGhost.PositionInGrid.Y + col))
-                                deliteList.Add(gameGrid[deleteGhost.PositionInGrid.X + row, deleteGhost.PositionInGrid.Y + col]);
+                                InGridSize(deleteGhost.PositionInGrid.X + row, deleteGhost.PositionInGrid.Y + col) &&
+                                !Grid[deleteGhost.PositionInGrid.X + row, deleteGhost.PositionInGrid.Y + col].Deleted)
+                                deleteList.Add(gameGrid[deleteGhost.PositionInGrid.X + row, deleteGhost.PositionInGrid.Y + col]);
                     Bomb newBomb = new Bomb("Explosion", "explosion", new Point(
-                        gameGrid[deleteGhost.PositionInGrid.X, deleteGhost.PositionInGrid.Y].Position.X - gridCellSize.X - 7,
-                        gameGrid[deleteGhost.PositionInGrid.X, deleteGhost.PositionInGrid.Y].Position.Y - gridCellSize.Y - 7),
-                        deliteList);
+                        gameGrid[deleteGhost.PositionInGrid.X, deleteGhost.PositionInGrid.Y].Position.X - gridCellSize.X - (gridCellSize.X - gameElementSize.X) / 2,
+                        gameGrid[deleteGhost.PositionInGrid.X, deleteGhost.PositionInGrid.Y].Position.Y - gridCellSize.Y - (gridCellSize.Y - gameElementSize.Y) / 2),
+                        deleteList);
                     MoveController.bombIsActive = true;
                     MoveController.activeBomb.Add(newBomb);
+                    deleteGhost.IsBoosted = false;
+                    deleteGhost.GhostBoost = -1;
                     MoveController.ElementsMove(GameController.nowGameTime);
                     break;
                 case 1:
-                    MoveController.destroer = true;
+                    MoveController.destroyer = true;
                     Destroyer destroyer1 = new Destroyer(
                         "Destroyer1", "destroyer",
-                        new Point(gameGrid[0, deleteGhost.PositionInGrid.Y].Position.Location.X - 7,
-                        gameGrid[0, deleteGhost.PositionInGrid.Y].Position.Location.Y - 7),
-                        new Point(deleteGhost.Position.Location.X - 7, deleteGhost.Position.Location.Y - 7), "Up");
+                        new Point(gameGrid[0, deleteGhost.PositionInGrid.Y].Position.Location.X - (gridCellSize.X - gameElementSize.X) / 2,
+                        gameGrid[0, deleteGhost.PositionInGrid.Y].Position.Location.Y - (gridCellSize.Y - gameElementSize.Y) / 2),
+                        new Point(deleteGhost.Position.Location.X - (gridCellSize.X - gameElementSize.X) / 2,
+                        deleteGhost.Position.Location.Y - (gridCellSize.Y - gameElementSize.Y) / 2), Direction.Up);
                     Destroyer destroyer2 = new Destroyer(
                         "Destroyer1", "destroyer",
                         gameGrid[gridSize.X - 1, deleteGhost.PositionInGrid.Y].Position.Location,
-                        new Point(deleteGhost.Position.Location.X - 7, deleteGhost.Position.Location.Y - 7), "Down");
+                        new Point(deleteGhost.Position.Location.X - (gridCellSize.X - gameElementSize.X)/2,
+                        deleteGhost.Position.Location.Y - (gridCellSize.Y - gameElementSize.Y) / 2), Direction.Down);
                     MoveController.movingDestroyersList.Add(destroyer1);
                     MoveController.movingDestroyersList.Add(destroyer2);
                     MoveController.DestMove(GameController.nowGameTime);
                     MoveController.DestroyerMove();
                     break;
                 case 2:
-                    MoveController.destroer = true;
+                    MoveController.destroyer = true;
                     Destroyer destroyer3 = new Destroyer(
                         "Destroyer1", "destroyer",
-                        new Point(gameGrid[deleteGhost.PositionInGrid.X, 0].Position.Location.X - 7,
-                        gameGrid[deleteGhost.PositionInGrid.X, 0].Position.Location.Y - 7),
-                        new Point(deleteGhost.Position.Location.X - 7, deleteGhost.Position.Location.Y - 7), "Left");
+                        new Point(gameGrid[deleteGhost.PositionInGrid.X, 0].Position.Location.X - (gridCellSize.X - gameElementSize.X) / 2,
+                        gameGrid[deleteGhost.PositionInGrid.X, 0].Position.Location.Y - (gridCellSize.Y - gameElementSize.Y) / 2),
+                        new Point(deleteGhost.Position.Location.X - (gridCellSize.X - gameElementSize.X) / 2,
+                        deleteGhost.Position.Location.Y - (gridCellSize.Y - gameElementSize.Y) / 2), Direction.Left);
                     Destroyer destroyer4 = new Destroyer(
                         "Destroyer1", "destroyer",
                         gameGrid[deleteGhost.PositionInGrid.X, gridSize.Y - 1].Position.Location,
-                        new Point(deleteGhost.Position.Location.X - 7, deleteGhost.Position.Location.Y - 7), "Right");
+                        new Point(deleteGhost.Position.Location.X - (gridCellSize.X - gameElementSize.X) / 2,
+                        deleteGhost.Position.Location.Y - (gridCellSize.Y - gameElementSize.Y) / 2), Direction.Right);
                     MoveController.movingDestroyersList.Add(destroyer3);
                     MoveController.movingDestroyersList.Add(destroyer4);
                     MoveController.DestMove(GameController.nowGameTime);
@@ -292,7 +299,7 @@ namespace Match3.GameObjects
             return false;
         }
 
-        public static void AffectAboveAllDelited()
+        public static void AffectAboveAlldeleted()
         {
             for (int row = 0; row < gridSize.Y; row++)
             {
@@ -304,16 +311,16 @@ namespace Match3.GameObjects
             }
         }
 
-        private static void AffectAbove(Ghost delitedDghost)
+        private static void AffectAbove(Ghost deletedDghost)
         {
-            for (int row = delitedDghost.PositionInGrid.X - 1; row >= 0; row--)
-                if (!gameGrid[row, delitedDghost.PositionInGrid.Y].Deleted)
+            for (int row = deletedDghost.PositionInGrid.X - 1; row >= 0; row--)
+                if (!gameGrid[row, deletedDghost.PositionInGrid.Y].Deleted)
                 {
-                    ElementsSwap(gameGrid[row + 1, delitedDghost.PositionInGrid.Y], gameGrid[row, delitedDghost.PositionInGrid.Y]);
+                    ElementsSwap(gameGrid[row + 1, deletedDghost.PositionInGrid.Y], gameGrid[row, deletedDghost.PositionInGrid.Y]);
                     if (gameStarted)
                     {
-                        gameGrid[row + 1, delitedDghost.PositionInGrid.Y].IsMoving = true;
-                        gameGrid[row, delitedDghost.PositionInGrid.Y].IsMoving = true;
+                        gameGrid[row + 1, deletedDghost.PositionInGrid.Y].IsMoving = true;
+                        gameGrid[row, deletedDghost.PositionInGrid.Y].IsMoving = true;
                     }
                 }
         }
@@ -331,18 +338,18 @@ namespace Match3.GameObjects
 
         private static void AddNewGhosts()
         {
-            bool lineElementsNotDelited = true;
+            bool lineElementsNotdeleted = true;
             Random randomizer = new Random();
             for (int row = 0; row < gridSize.X; row++)
             {
                 if (MoveController.IsFirstLineClear(gridPosition, gridCellSize, gridSize))
                 {
-                    lineElementsNotDelited = true;
+                    lineElementsNotdeleted = true;
                     for (int col = 0; col < gridSize.Y; col++)
                     {
                         if (gameGrid[0, col].Deleted)
                         {
-                            lineElementsNotDelited = false;
+                            lineElementsNotdeleted = false;
                             gameGrid[0, col].GhostColor = randomizer.Next(colors);
                             gameGrid[0, col].TextureSet(gameGrid[0, col].GhostTextureName(gameGrid[0, col].GhostColor));
                             gameGrid[0, col].Deleted = false;
@@ -358,7 +365,7 @@ namespace Match3.GameObjects
                             }
                         }
                     }
-                    if (lineElementsNotDelited)
+                    if (lineElementsNotdeleted)
                         return;
                 }
                 if (gameStarted && MoveController.movingElementsList.Count != 0)
@@ -422,7 +429,7 @@ namespace Match3.GameObjects
         {
             for (int row = 0; row < gridSize.X; row++)
                 for (int col = 0; col < gridSize.Y; col++)
-                    if (gameGrid[row, col].IsPresed(lastMouseState))
+                    if (gameGrid[row, col].IsPresed(lastMouseState) && MoveController.movingElementsList.Count == 0)
                     {
                         gameGrid[row, col].IsSelected = true;
                         SelectedController.SelectedElementSet(gameGrid[row, col]);
@@ -440,10 +447,10 @@ namespace Match3.GameObjects
         public static List<Destroyer> DestroyersToGameObjects()
         {
             List<Destroyer> retunList = new List<Destroyer>();
-            if (MoveController.destroer)
+            if (MoveController.destroyer)
             {
-                for (int destroer = 0; destroer < MoveController.movingDestroyersList.Count; destroer++)
-                    retunList.Add(MoveController.movingDestroyersList[destroer]);
+                for (int destroyer = 0; destroyer < MoveController.movingDestroyersList.Count; destroyer++)
+                    retunList.Add(MoveController.movingDestroyersList[destroyer]);
             }
             return retunList;
         }
@@ -470,22 +477,20 @@ namespace Match3.GameObjects
                             returnList.Add(
                             new ActiveElement("Bomb", "bomb",
                             new Point(
-                                GameGrid.Grid[i, j].PositionNow.X + 8,
-                                GameGrid.Grid[i, j].PositionNow_Y - 2)));
+                                GameGrid.Grid[i, j].PositionNow.X,
+                                GameGrid.Grid[i, j].PositionNow_Y)));
                             break;
                         case 1:
-                            returnList.Add(
-                            new ActiveElement("LineVertical", "lineBonus",
-                            new Point(
-                                GameGrid.Grid[i, j].PositionNow.X + 13,
-                                GameGrid.Grid[i, j].PositionNow_Y - 5)));
+                            ActiveElement lineVertical = new ActiveElement("LineVertical", "lineBonus");
+                            lineVertical.PositionNow_X = GameGrid.Grid[i, j].PositionNow.X;
+                            lineVertical.PositionNow_Y = GameGrid.Grid[i, j].PositionNow.Y - (lineVertical.Texture.Height - gameElementSize.Y)/ 2;
+                            returnList.Add(lineVertical);
                             break;
                         case 2:
-                            returnList.Add(
-                            new ActiveElement("LineHorizontal", "lineBonus",
-                            new Point(
-                                GameGrid.Grid[i, j].PositionNow.X - 5,
-                                GameGrid.Grid[i, j].PositionNow_Y + 15)));
+                            ActiveElement lineHorizontal = new ActiveElement("LineHorizontal", "lineBonus");
+                            lineHorizontal.PositionNow_X = GameGrid.Grid[i, j].PositionNow.X - (lineHorizontal.Texture.Width - gameElementSize.X) / 2;
+                            lineHorizontal.PositionNow_Y = GameGrid.Grid[i, j].PositionNow.Y;
+                            returnList.Add(lineHorizontal);
                             break;
                     }
                 }

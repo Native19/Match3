@@ -56,8 +56,8 @@ namespace Match3.GameLogic
         static bool isInitialized = false;
         static List<GameElement> gameOjects = new List<GameElement>();
         static List<ActiveElement> gameOjectsActive = new List<ActiveElement>();
-        static List<Destroyer> gameDestroersList = new List<Destroyer>();
-        static List<Image> destroersImage = new List<Image>();
+        static List<Destroyer> gamedestroyersList = new List<Destroyer>();
+        static List<Image> destroyersImage = new List<Image>();
 
         public static void GameMainLogic(MouseState lastMouseState, GameTime gameTime)
         {
@@ -72,7 +72,7 @@ namespace Match3.GameLogic
                 SelectedController.UnselectElements();
                 MoveController.movingElementsList.Clear();
                 MoveController.movingDestroyersList.Clear();
-                ScreenMeneger.ScreenName = "GameOver";
+                ScreenMenager.ScreenName = "GameOver";
                 isInitialized = false;
                 MainScreen.Clear();
                 return;
@@ -90,24 +90,24 @@ namespace Match3.GameLogic
             }
             MoveController.ElementsMove(gameTime);
             gameOjectsActive = GameGrid.GridToGameObjects();
-            destroersImage.Clear();
+            destroyersImage.Clear();
 
             GameGrid.ElementSelected(lastMouseState);
             foreach (Destroyer item in GameGrid.DestroyersToGameObjects())
             {
                 switch (item.Direction) // вращение пакмена
                 {
-                    case "Up":
-                        destroersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X + 60, item.PositionNow_Y), null, MathHelper.PiOver2, Vector2.Zero, SpriteEffects.FlipVertically));
+                    case Direction.Up:
+                        destroyersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X + 60, item.PositionNow_Y), null, MathHelper.PiOver2, Vector2.Zero, SpriteEffects.FlipVertically));
                         break;
-                    case "Down":
-                        destroersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X + 60, item.PositionNow_Y), null, MathHelper.PiOver2, Vector2.Zero, SpriteEffects.FlipHorizontally));
+                    case Direction.Down:
+                        destroyersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X + 60, item.PositionNow_Y), null, MathHelper.PiOver2, Vector2.Zero, SpriteEffects.FlipHorizontally));
                         break;
-                    case "Left":
-                        destroersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X, item.PositionNow_Y), null, 0,  Vector2.Zero , SpriteEffects.None));
+                    case Direction.Left:
+                        destroyersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X, item.PositionNow_Y), null, 0,  Vector2.Zero , SpriteEffects.None));
                         break;
-                    case "Right":
-                        destroersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X, item.PositionNow_Y), null,  0, Vector2.Zero, SpriteEffects.FlipHorizontally));
+                    case Direction.Right:
+                        destroyersImage.Add(new Image(item.Texture, new Point(item.PositionNow.X, item.PositionNow_Y), null,  0, Vector2.Zero, SpriteEffects.FlipHorizontally));
                         break;
                 }
             };
@@ -116,7 +116,7 @@ namespace Match3.GameLogic
                     .Select(item => new Image(item.Texture, new Point(item.PositionNow.X, item.PositionNow_Y)))
                     .ToList<Image>());
 
-            MainScreen.UpdateDestroyersImageList(new List<Image>(destroersImage));
+            MainScreen.UpdateDestroyersImageList(new List<Image>(destroyersImage));
 
             MainScreen.UpdateBombImageList(GameGrid.BombToGameObjects()
                     .Select(item =>

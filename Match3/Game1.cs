@@ -43,7 +43,7 @@ namespace Match3
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             MouseState currentMouseState = Mouse.GetState();
-            ScreenMeneger.scrinSet(lastMouseState, gameTime);
+            ScreenMenager.scrinSet(lastMouseState, gameTime);
             lastMouseState = currentMouseState;
             base.Update(gameTime);
         }

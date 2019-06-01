@@ -27,7 +27,7 @@ namespace Match3.GameLogic
             {
                 SelectedController.UnselectElements();
                 MoveController.movingElementsList.Clear();
-                ScreenMeneger.ScreenName = "GameMain";
+                ScreenMenager.ScreenName = "GameMain";
                 isInitialized = false;
                 MainScreen.Clear();
                 return;

@@ -12,7 +12,7 @@ namespace Match3.GameLogic
         public static List<Destroyer> movingDestroyersList = new List<Destroyer>();
         private static float time = 1f;
         public static bool swap = false;
-        public static bool destroer = false;
+        public static bool destroyer = false;
         public static bool bombIsActive = false;
         public static List<Bomb> activeBomb = new List<Bomb>();
 
@@ -41,7 +41,7 @@ namespace Match3.GameLogic
 
         public static void DestroyerMove()
         {
-            if (destroer && movingDestroyersList.Count != 0)
+            if (destroyer && movingDestroyersList.Count != 0)
             {
                 for (int i = 0; i < movingDestroyersList.Count; i++)
                 {
@@ -52,8 +52,8 @@ namespace Match3.GameLogic
                 }
                 return;
             }
-            destroer = false;
-            GameGrid.AffectAboveAllDelited();
+            destroyer = false;
+            GameGrid.AffectAboveAlldeleted();
         }
 
         public static void DestMove(GameTime gameTime)
@@ -65,7 +65,7 @@ namespace Match3.GameLogic
                 {
                     time = 1f;
                     for (int i = 0; i < movingDestroyersList.Count; i++)
-                        if (movingDestroyersList[i].Move(8))
+                        if (movingDestroyersList[i].Move(9))
                             movingDestroyersList.Remove(movingDestroyersList[i]);
                         else
                             if (Math.Abs(movingDestroyersList[i].Position.X + 1 - movingDestroyersList[i].PositionNow.X) % 15 < 1 ||
@@ -75,7 +75,7 @@ namespace Match3.GameLogic
                 else
                 { return; }
             }
-            GameGrid.AffectAboveAllDelited();
+            GameGrid.AffectAboveAlldeleted();
             GameGrid.RebuildGrid();
         }
 
@@ -85,10 +85,10 @@ namespace Match3.GameLogic
             for (int i = 0; i < activeBomb.Count; i++)
                 if (activeBomb[i].BombTimer < 0)
                 {
-                    for (int item = 0; item < activeBomb[i].DeliteList.Count; item++)
-                        GameGrid.RemoveGhost(activeBomb[i].DeliteList[item]);
-                    activeBomb[i].DeliteList.Clear();
-                    GameGrid.AffectAboveAllDelited();
+                    for (int item = 0; item < activeBomb[i].DeleteList.Count; item++)
+                        GameGrid.RemoveGhost(activeBomb[i].DeleteList[item]);
+                    activeBomb[i].DeleteList.Clear();
+                    GameGrid.AffectAboveAlldeleted();
                     activeBomb.Remove(activeBomb[i]);
                     i--;
                     if (activeBomb.Count == 0)
@@ -100,7 +100,7 @@ namespace Match3.GameLogic
 
         public static void ElementsMove(GameTime gameTime)
         {
-            time -= (float)gameTime.ElapsedGameTime.Milliseconds / 10;
+            time -= (float)gameTime.ElapsedGameTime.Milliseconds / 8;
             DestroyerMove();
             if (bombIsActive)
                 BombIsActive(gameTime);

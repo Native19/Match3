@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Match3.GameLogic
 {
-    static class ScreenMeneger
+    static class ScreenMenager
     {
         private static string screenName = "MainMenu";
 

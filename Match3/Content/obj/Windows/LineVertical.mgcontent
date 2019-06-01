@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineVertical.png</SourceFile>
-  <SourceTime>2019-05-21T23:32:44.4403938+10:00</SourceTime>
+  <SourceTime>2019-06-01T16:14:49.5861779+10:00</SourceTime>
   <DestFile>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/bin/Windows/LineVertical.xnb</DestFile>
-  <DestTime>2019-05-21T23:33:16.6372354+10:00</DestTime>
+  <DestTime>2019-06-01T16:18:35.0250722+10:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T01:05:36+10:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

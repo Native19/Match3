@@ -11,9 +11,6 @@
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GridActiveElement.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GridElement.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/RedGhost.png</File>
-    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Bomb.png</File>
-    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineHorizontal.png</File>
-    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineVertical.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/BlueGhost.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/GreenGhost.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/OrangeGhost.png</File>
@@ -21,5 +18,8 @@
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Destroyer1.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Destroyer2.png</File>
     <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Explosion.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/Bomb.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineHorizontal.png</File>
+    <File>C:/Users/Kostya/Source/Repos/Match3/Match3/Content/LineVertical.png</File>
   </SourceFiles>
 </SourceFileCollection>
